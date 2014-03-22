@@ -7,6 +7,7 @@ ifeq ($(UNAME),Darwin)
   GTEST_LIBS = -L$(GTEST_DIR) -lgtest
 else
   CXX = g++
+  GTEST_LIBS = -lgtest
 endif
 
 CXXFLAGS = -Wall -std=c++11
