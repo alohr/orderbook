@@ -1,24 +1,22 @@
-CXX = g++-mp-4.8
-CXXFLAGS = -Wall -std=c++11
+UNAME := $(shell uname -s)
 
-GTEST_DIR = gtest-1.7.0
-GTEST_INCLUDE = -I$(GTEST_DIR)/include 
-GTEST_LIBS = -L$(GTEST_DIR) -lgtest
+ifeq ($(UNAME),Darwin)
+  CXX = g++-mp-4.8
+else
+  CXX = g++
+endif
 
-INCLUDES = -I.. $(GTEST_INCLUDE)
-LIBS = $(GTEST_LIBS)
+CXXFLAGS = -Wall -std=c++11 -DMAIN
+
+OBJS = $(patsubst %.c,%.o, $(wildcard *.cpp))
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $(INCLUDES) $<
 
-%.o: ../%.cpp
-	$(CXX) $(CXXFLAGS) -c $(INCLUDES) $<
 
-orderbooktest: OrderBookTest.o OrderBook.o
+orderbook: OrderBook.o
 	$(CXX) -o $@ $^ $(LIBS)
 
-OrderBook.o: ../OrderBook.cpp
-OrderBookTest.o: OrderBookTest.cpp
-
 clean:
-	/bin/rm -f orderbooktest *.o *~ 
+	/bin/rm -f orderbook *.o *~ 
+
