@@ -18,12 +18,12 @@ protected:
 
 TEST_F(OrderBookTest, haveTenBids)
 {
-    EXPECT_EQ(orderBook_.bids().size(), 10);
+    EXPECT_EQ(orderBook_.bidSize(), 10);
 }
 
 TEST_F(OrderBookTest, haveTenAsks)
 {
-    EXPECT_EQ(orderBook_.asks().size(), 10);
+    EXPECT_EQ(orderBook_.askSize(), 10);
 }
 
 TEST_F(OrderBookTest, verifyAllBids)

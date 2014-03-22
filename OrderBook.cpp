@@ -39,28 +39,24 @@ std::ostream& operator<<(std::ostream& os, const DeleteMessage& message)
 
 void OrderBook::onNew(const NewMessage& message)
 {
-    if (debug) {
+    if (debug)
 	std::cout << message << std::endl;
-    }
     newLevel(message.side == 'B' ? bids_ : asks_, message.level - 1, PriceLevel(message));
 }
 
 void OrderBook::onModify(const ModifyMessage& message)
 {
-    if (debug) {
+    if (debug)
 	std::cout << message << std::endl;
-    }
     modifyLevel(message.side == 'B' ? bids_ : asks_, message.level - 1, message.quantity);
 }
 
 void OrderBook::onDelete(const DeleteMessage& message)
 {
-    if (debug) {
+    if (debug)
 	std::cout << message << std::endl;
-    }
     deleteLevel(message.side == 'B' ? bids_ : asks_, message.level - 1);
 }
-
 
 void OrderBook::newLevel(std::vector<PriceLevel>& levels, size_t i, const PriceLevel& priceLevel)
 {
@@ -78,20 +74,24 @@ void OrderBook::deleteLevel(std::vector<PriceLevel>& levels, size_t i)
     levels.erase(levels.begin() + i);
 }
 
-void OrderBook::printLevels(const std::string& title, const std::vector<PriceLevel>& levels) const
+void OrderBook::printLevel(size_t i, const PriceLevel& level) const
 {
-    std::cout << title << std::endl;
+    std::cout << std::setfill(' ')
+	      << std::setw(2)
+	      << i
+	      << " " << std::setw(3) << level.quantity()
+	      << " " << level.price()
+	      << std::endl;
+}
 
-    int i = 1;
-    for (const auto& level : levels) {
-	std::cout << std::setfill(' ')
-		  << std::setw(2)
-		  << i
-		  << " " << level.quantity()
-		  << " " << level.price()
-		  << std::endl;
-	i++;
-    }
+void OrderBook::print() const
+{
+    std::cout << "Asks" << std::endl;
+    for (size_t i = asks_.size(); i != 0; i--)
+	printLevel(i, asks_[i - 1]);
+    std::cout << "Bids" << std::endl;
+    for (size_t i = 1; i <= bids_.size(); i++)
+	printLevel(i, bids_[i - 1]);
 }
 
 void MessageReader::read(const std::string& filename)

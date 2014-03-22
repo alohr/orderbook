@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <iostream>
 #include <vector>
 
@@ -78,16 +79,13 @@ public:
     virtual void onModify(const ModifyMessage& message) override;
     virtual void onDelete(const DeleteMessage& message) override;
 
-    void print() const {
-	printLevels("Asks", asks_);
-	printLevels("Bids", bids_);
-    }
+    void print() const;
 
     const PriceLevel& bid(size_t i) const { return bids_[i]; }
     const PriceLevel& ask(size_t i) const { return asks_[i]; }
 
-    const std::vector<PriceLevel> bids() const { return bids_; }
-    const std::vector<PriceLevel> asks() const { return asks_; }
+    size_t bidSize() const { return bids_.size(); }
+    size_t askSize() const { return asks_.size(); }
 
 private:
     static const size_t ORDERBOOK_DEPTH = 10;
@@ -95,8 +93,7 @@ private:
     void newLevel(std::vector<PriceLevel>& levels, size_t i, const PriceLevel& priceLevel);
     void modifyLevel(std::vector<PriceLevel>& levels, size_t i, int quantity);
     void deleteLevel(std::vector<PriceLevel>& levels, size_t i);
-
-    void printLevels(const std::string& title, const std::vector<PriceLevel>& levels) const;
+    void printLevel(size_t i, const PriceLevel& level) const;
 
     std::vector<PriceLevel> bids_;
     std::vector<PriceLevel> asks_;
