@@ -3,21 +3,12 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
-#include <unistd.h>
 
 void MessageReader::read(const std::string& filename)
 {
     char action = 0;
-    char p[256];
-
-    getcwd(p, sizeof p);
-    printf("XXX [%s]\n", p);
-
-    std::ifstream in(filename);
-    if (in.fail()) {
-        std::cerr << filename << std::endl;
-    }
     
+    std::ifstream in(filename);
     while (in >> action) {
 	switch (action) {
 	case 'N':
