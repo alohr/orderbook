@@ -9,8 +9,9 @@ protected:
 
     virtual void SetUp()
     {
+        std::cout << "XXX setup" << std::endl;
 	MessageReader reader(orderBook_);
-	reader.read("../data/sample.csv");
+	reader.read("data/sample.csv");
     }
 
     OrderBook orderBook_;
