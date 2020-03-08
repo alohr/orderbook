@@ -1,45 +1,47 @@
 #pragma once
 
+#include "MessageReader.h"
+
 #include <iostream>
 
-struct NewMessage {
+struct SimpleNewMessage {
     char side;
     int level;
     double price;
     int quantity;
 };
 
-struct ModifyMessage {
+struct SimpleModifyMessage {
     char side;
     int level;
     int quantity;
 };
 
-struct DeleteMessage {
+struct SimpleDeleteMessage {
     char side;
     int level;
 };
 
-std::ostream& operator<<(std::ostream& os, const NewMessage& message);
-std::ostream& operator<<(std::ostream& os, const ModifyMessage& message);
-std::ostream& operator<<(std::ostream& os, const DeleteMessage& message);
+std::ostream& operator<<(std::ostream& os, const SimpleNewMessage& message);
+std::ostream& operator<<(std::ostream& os, const SimpleModifyMessage& message);
+std::ostream& operator<<(std::ostream& os, const SimpleDeleteMessage& message);
 
-class MessageHandler {
+class SimpleMessageHandler {
 public:
-    virtual void onNew(const NewMessage& message) = 0;
-    virtual void onModify(const ModifyMessage& message) = 0;
-    virtual void onDelete(const DeleteMessage& message) = 0;
+    virtual void onNew(const SimpleNewMessage& message) = 0;
+    virtual void onModify(const SimpleModifyMessage& message) = 0;
+    virtual void onDelete(const SimpleDeleteMessage& message) = 0;
 };
 
-class MessageReader {
+class SimpleMessageReader : public MessageReader {
 public:
-    MessageReader(MessageHandler& handler) :
+    SimpleMessageReader(SimpleMessageHandler& handler) :
 	handler_(handler) {}
 
-    void read(const std::string& filename);
+    void read(const std::string& filename) override;
 
 private:
-    MessageHandler& handler_;
+    SimpleMessageHandler& handler_;
 
 };
 

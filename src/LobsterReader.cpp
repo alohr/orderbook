@@ -6,9 +6,9 @@
 
 void LobsterReader::read(const std::string& filename)
 {
-    std::ifstream in(filename);
     LobsterMessage message;
-    
+
+    std::ifstream in(filename);
     while (in >> message.second) {
         in.ignore(1) >> message.nanosecond;
         in.ignore(1) >> message.event;

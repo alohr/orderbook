@@ -1,42 +1,42 @@
-#include "OrderBook.h"
+#include "SimpleOrderBook.h"
 
 #include <fstream>
 #include <iostream>
 #include <iomanip>
 #include <string>
 
-void OrderBook::onNew(const NewMessage& message)
+void SimpleOrderBook::onNew(const SimpleNewMessage& message)
 {
     newLevel(message.side == 'B' ? bids_ : asks_, message.level - 1, PriceLevel(message));
 }
 
-void OrderBook::onModify(const ModifyMessage& message)
+void SimpleOrderBook::onModify(const SimpleModifyMessage& message)
 {
     modifyLevel(message.side == 'B' ? bids_ : asks_, message.level - 1, message.quantity);
 }
 
-void OrderBook::onDelete(const DeleteMessage& message)
+void SimpleOrderBook::onDelete(const SimpleDeleteMessage& message)
 {
     deleteLevel(message.side == 'B' ? bids_ : asks_, message.level - 1);
 }
 
-void OrderBook::newLevel(std::vector<PriceLevel>& levels, size_t i, const PriceLevel& priceLevel)
+void SimpleOrderBook::newLevel(std::vector<PriceLevel>& levels, size_t i, const PriceLevel& priceLevel)
 {
     levels.insert(levels.begin() + i, priceLevel);
     levels.resize(ORDERBOOK_DEPTH);
 }
 
-void OrderBook::modifyLevel(std::vector<PriceLevel>& levels, size_t i, int quantity)
+void SimpleOrderBook::modifyLevel(std::vector<PriceLevel>& levels, size_t i, int quantity)
 {
     levels[i].modify(quantity);
 }
 
-void OrderBook::deleteLevel(std::vector<PriceLevel>& levels, size_t i)
+void SimpleOrderBook::deleteLevel(std::vector<PriceLevel>& levels, size_t i)
 {
     levels.erase(levels.begin() + i);
 }
 
-void OrderBook::printLevel(size_t i, const PriceLevel& level) const
+void SimpleOrderBook::printLevel(size_t i, const PriceLevel& level) const
 {
     std::cout << std::setfill(' ')
 	      << std::setw(2)
@@ -46,7 +46,7 @@ void OrderBook::printLevel(size_t i, const PriceLevel& level) const
 	      << std::endl;
 }
 
-void OrderBook::print() const
+void SimpleOrderBook::print() const
 {
     std::cout << "Asks" << std::endl;
     for (size_t i = asks_.size(); i != 0; i--)

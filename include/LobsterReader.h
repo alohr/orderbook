@@ -1,5 +1,7 @@
 #pragma once
 
+#include "MessageReader.h"
+
 #include <iostream>
 
 enum LobsterEvent {
@@ -35,12 +37,12 @@ public:
     virtual void onTradingHalt(const LobsterMessage& message) = 0;
 };
 
-class LobsterReader {
+class LobsterReader : public MessageReader {
 public:
     LobsterReader(LobsterMessageHandler& handler) :
 	handler_(handler) {}
 
-    void read(const std::string& filename);
+    void read(const std::string& filename) override;
 
 private:
     LobsterMessageHandler& handler_;

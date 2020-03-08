@@ -1,24 +1,22 @@
 #pragma once
 
-#include "OrderBook.h"
-
 #include <algorithm>
 #include <iostream>
 #include <vector>
 
-#include "MessageReader.h"
+#include "SimpleMessageReader.h"
 #include "PriceLevel.h"
 
-class OrderBook : public MessageHandler {
+class SimpleOrderBook : public SimpleMessageHandler {
 public:
-    OrderBook() {
+    SimpleOrderBook() {
 	bids_.reserve(ORDERBOOK_DEPTH + 1); // avoid realloc during inserts
 	asks_.reserve(ORDERBOOK_DEPTH + 1);
     }
 
-    virtual void onNew(const NewMessage& message) override;
-    virtual void onModify(const ModifyMessage& message) override;
-    virtual void onDelete(const DeleteMessage& message) override;
+    virtual void onNew(const SimpleNewMessage& message) override;
+    virtual void onModify(const SimpleModifyMessage& message) override;
+    virtual void onDelete(const SimpleDeleteMessage& message) override;
 
     void print() const;
 

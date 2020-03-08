@@ -1,12 +1,14 @@
 #pragma once
 
+#include "SimpleMessageReader.h"
+
 class PriceLevel {
 public:
     PriceLevel() :
 	price_(0.0),
 	quantity_(0) {}
 	    
-    PriceLevel(const NewMessage& message) :
+    PriceLevel(const SimpleNewMessage& message) :
 	price_(message.price),
 	quantity_(message.quantity) {}
 

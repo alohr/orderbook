@@ -7,5 +7,6 @@ option "verbose" v "verbose output" flag off
 
 section "input types"
 
-option "lobster" - "process lobster message files"
+option "lobster" - "process lobster message files" flag off
+
 

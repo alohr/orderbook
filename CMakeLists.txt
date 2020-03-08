@@ -9,8 +9,9 @@ add_compile_options(-Wall -Wextra -Wpedantic)
 
 add_library(lob
   src/LobsterReader.cpp
-  src/MessageReader.cpp
-  src/OrderBook.cpp)
+  src/LobsterOrderBook.cpp
+  src/SimpleMessageReader.cpp
+  src/SimpleOrderBook.cpp)
 
 target_include_directories(lob PUBLIC include)
 target_include_directories(lob PRIVATE src)

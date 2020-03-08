@@ -2,32 +2,31 @@
 
 #include <gtest/gtest.h>
 
-#include <OrderBook.h>
+#include <SimpleOrderBook.h>
 
-class OrderBookTest : public ::testing::Test {
+class SimpleOrderBookTest : public ::testing::Test {
 protected:
 
     virtual void SetUp()
     {
-        std::cout << "XXX setup" << std::endl;
-	MessageReader reader(orderBook_);
+	SimpleMessageReader reader(orderBook_);
 	reader.read("data/sample.csv");
     }
 
-    OrderBook orderBook_;
+    SimpleOrderBook orderBook_;
 };
 
-TEST_F(OrderBookTest, haveTenBids)
+TEST_F(SimpleOrderBookTest, haveTenBids)
 {
     EXPECT_EQ(orderBook_.bidSize(), 10);
 }
 
-TEST_F(OrderBookTest, haveTenAsks)
+TEST_F(SimpleOrderBookTest, haveTenAsks)
 {
     EXPECT_EQ(orderBook_.askSize(), 10);
 }
 
-TEST_F(OrderBookTest, verifyAllBids)
+TEST_F(SimpleOrderBookTest, verifyAllBids)
 {
     EXPECT_EQ(orderBook_.bid(0).quantity(), 100);
     EXPECT_EQ(orderBook_.bid(0).price(), 239.55);
@@ -51,7 +50,7 @@ TEST_F(OrderBookTest, verifyAllBids)
     EXPECT_EQ(orderBook_.bid(9).price(), 238.95);
 }
 
-TEST_F(OrderBookTest, verifyAllAsks)
+TEST_F(SimpleOrderBookTest, verifyAllAsks)
 {
     EXPECT_EQ(orderBook_.ask(9).quantity(), 40);
     EXPECT_EQ(orderBook_.ask(9).price(), 240.10);

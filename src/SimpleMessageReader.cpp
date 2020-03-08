@@ -1,10 +1,10 @@
-#include "MessageReader.h"
+#include "SimpleMessageReader.h"
 
 #include <fstream>
 #include <iostream>
 #include <iomanip>
 
-void MessageReader::read(const std::string& filename)
+void SimpleMessageReader::read(const std::string& filename)
 {
     char action = 0;
     
@@ -12,8 +12,8 @@ void MessageReader::read(const std::string& filename)
     while (in >> action) {
 	switch (action) {
 	case 'N':
-	    {
-		NewMessage message;
+        {
+		SimpleNewMessage message;
 		in.ignore(2) >> message.side;
 		in.ignore(2) >> message.level;
 		in.ignore(2) >> message.price;
@@ -23,7 +23,7 @@ void MessageReader::read(const std::string& filename)
 	    break;
 	case 'M':
 	    {
-		ModifyMessage message;
+		SimpleModifyMessage message;
 		in.ignore(2) >> message.side;
 		in.ignore(2) >> message.level;
 		in.ignore(2) >> message.quantity;
@@ -32,7 +32,7 @@ void MessageReader::read(const std::string& filename)
 	    break;
 	case 'D':
 	    {
-		DeleteMessage message;
+		SimpleDeleteMessage message;
 		in.ignore(2) >> message.side;
 		in.ignore(2) >> message.level;
 		handler_.onDelete(message);
@@ -42,7 +42,7 @@ void MessageReader::read(const std::string& filename)
     }
 }
 
-std::ostream& operator<<(std::ostream& os, const NewMessage& message)
+std::ostream& operator<<(std::ostream& os, const SimpleNewMessage& message)
 {
     os << "NewMessage = { side=" << message.side
        << ", level=" << message.level
@@ -53,7 +53,7 @@ std::ostream& operator<<(std::ostream& os, const NewMessage& message)
     return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const ModifyMessage& message)
+std::ostream& operator<<(std::ostream& os, const SimpleModifyMessage& message)
 {
     os << "ModifyMessage = { side=" << message.side
        << ", level=" << message.level
@@ -63,7 +63,7 @@ std::ostream& operator<<(std::ostream& os, const ModifyMessage& message)
     return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const DeleteMessage& message)
+std::ostream& operator<<(std::ostream& os, const SimpleDeleteMessage& message)
 {
     os << "DeleteMessage = { side=" << message.side
        << ", level=" << message.level
