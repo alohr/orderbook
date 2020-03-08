@@ -1,4 +1,5 @@
 build
 data/lobster/*.csv
 data/lobster/*.zip
+data/lobster/*.txt
 *~
