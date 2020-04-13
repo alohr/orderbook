@@ -5,7 +5,7 @@ project(orderbook)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_compile_options(-Wall -Wextra -Wpedantic)
+add_compile_options(-Wall -Wextra)
 
 add_library(lob
   src/LobsterReader.cpp
@@ -19,6 +19,8 @@ target_include_directories(lob PRIVATE src)
 # dependencies
 #target_link_libraries(orderbook PUBLiC abc)
 #target_link_libraries(orderbook PRIVATE def)
+
+find_package(Boost 1.60 REQUIRED COMPONENTS filesystem regex)
 
 #
 # main program
@@ -58,5 +60,5 @@ option(PACKAGE_TESTS "Build the tests" ON)
 if (PACKAGE_TESTS)
   enable_testing()
   include(GoogleTest)
-  add_subdirectory(test)
+  add_subdirectory(tests)
 endif()

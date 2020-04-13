@@ -25,6 +25,7 @@ struct LobsterMessage {
     int32_t side;
 };
 
+std::ostream& operator<<(std::ostream& os, const LobsterMessage& message);
 
 class LobsterMessageHandler {
 public:

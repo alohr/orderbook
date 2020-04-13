@@ -9,6 +9,10 @@ void LobsterReader::read(const std::string& filename)
     LobsterMessage message;
 
     std::ifstream in(filename);
+    if (in.fail()) {
+        std::cerr << "fail " << filename << std::endl;
+    }
+    
     while (in >> message.second) {
         in.ignore(1) >> message.nanosecond;
         in.ignore(1) >> message.event;

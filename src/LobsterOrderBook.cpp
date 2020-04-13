@@ -4,6 +4,7 @@
 
 void LobsterOrderBook::onNew(const LobsterMessage& message)
 {
+    std::cout << message << '\n';
 }
 
 void LobsterOrderBook::onCancelPartial(const LobsterMessage& message)
@@ -41,6 +42,20 @@ void LobsterOrderBook::printLevel(size_t i, const LobsterPriceLevel& level) cons
 	      << std::endl;
 #endif
 }
+
+std::ostream& operator<<(std::ostream& os, const LobsterMessage& message)
+{
+    os << "LobsterMessage = { time=" << message.second << "." << message.nanosecond
+       << ", event=" << message.event
+       << ", orderid=" << message.orderid
+       << ", size=" << message.size
+       << ", price=" << message.price
+       << ", side=" << message.side
+       << " }";
+
+    return os;
+}
+
 
 void LobsterOrderBook::print() const
 {
