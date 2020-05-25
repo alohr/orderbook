@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "SimpleMessageReader.h"
-#include "PriceLevel.h"
+#include "SimplePriceLevel.h"
 
 class SimpleOrderBook : public SimpleMessageHandler {
 public:
@@ -20,8 +20,8 @@ public:
 
     void print() const;
 
-    const PriceLevel& bid(size_t i) const { return bids_[i]; }
-    const PriceLevel& ask(size_t i) const { return asks_[i]; }
+    const SimplePriceLevel& bid(size_t i) const { return bids_[i]; }
+    const SimplePriceLevel& ask(size_t i) const { return asks_[i]; }
 
     size_t bidSize() const { return bids_.size(); }
     size_t askSize() const { return asks_.size(); }
@@ -29,13 +29,13 @@ public:
 private:
     static const size_t ORDERBOOK_DEPTH = 10;
 
-    void newLevel(std::vector<PriceLevel>& levels, size_t i, const PriceLevel& priceLevel);
-    void modifyLevel(std::vector<PriceLevel>& levels, size_t i, int quantity);
-    void deleteLevel(std::vector<PriceLevel>& levels, size_t i);
-    void printLevel(size_t i, const PriceLevel& level) const;
+    void newLevel(std::vector<SimplePriceLevel>& levels, size_t i, const SimplePriceLevel& priceLevel);
+    void modifyLevel(std::vector<SimplePriceLevel>& levels, size_t i, int quantity);
+    void deleteLevel(std::vector<SimplePriceLevel>& levels, size_t i);
+    void printLevel(size_t i, const SimplePriceLevel& level) const;
 
-    std::vector<PriceLevel> bids_;
-    std::vector<PriceLevel> asks_;
+    std::vector<SimplePriceLevel> bids_;
+    std::vector<SimplePriceLevel> asks_;
 };
 
 // Local variables:

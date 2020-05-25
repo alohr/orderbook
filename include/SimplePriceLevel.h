@@ -2,13 +2,13 @@
 
 #include "SimpleMessageReader.h"
 
-class PriceLevel {
+class SimplePriceLevel {
 public:
-    PriceLevel() :
+    SimplePriceLevel() :
 	price_(0.0),
 	quantity_(0) {}
 	    
-    PriceLevel(const SimpleNewMessage& message) :
+    SimplePriceLevel(const SimpleNewMessage& message) :
 	price_(message.price),
 	quantity_(message.quantity) {}
 

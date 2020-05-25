@@ -12,7 +12,7 @@ void LobsterReader::read(const std::string& filename)
     if (in.fail()) {
         std::cerr << "fail " << filename << std::endl;
     }
-    
+
     while (in >> message.second) {
         in.ignore(1) >> message.nanosecond;
         in.ignore(1) >> message.event;
@@ -20,30 +20,32 @@ void LobsterReader::read(const std::string& filename)
         in.ignore(1) >> message.size;
         in.ignore(1) >> message.price;
         in.ignore(1) >> message.side;
-        
-	switch (message.event) {
+
+        std::cout << message << "\n";
+
+        switch (message.event) {
         case LobsterEvent::NEW:
             handler_.onNew(message);
-	    break;
+            break;
         case LobsterEvent::CANCEL_PARTIAL:
             handler_.onCancelPartial(message);
-	    break;
+            break;
         case LobsterEvent::CANCEL_FULL:
             handler_.onCancelFull(message);
-	    break;
+            break;
         case LobsterEvent::EXEC_VISIBLE:
             handler_.onExecVisible(message);
-	    break;
+    	    break;
         case LobsterEvent::EXEC_HIDDEN:
             handler_.onExecHidden(message);
-	    break;
+            break;
         case LobsterEvent::CROSS:
             handler_.onCross(message);
-	    break;
+            break;
         case LobsterEvent::TRADING_HALT:
             handler_.onTradingHalt(message);
-	    break;
-	}
+            break;
+        }
     }
 }
 

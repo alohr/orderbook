@@ -15,6 +15,11 @@ enum LobsterEvent {
     TRADING_HALT   = 7,
 };
 
+enum LobsterSide {
+    BUY  = 1,
+    SELL = -1,
+};
+
 struct LobsterMessage {
     uint32_t second;
     uint32_t nanosecond;
